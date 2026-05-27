@@ -52,3 +52,4 @@ gen/
 /flake/*
 !/flake/flake.nix
 !/flake/flake.lock
+/docker-data

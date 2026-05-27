@@ -1,0 +1,28 @@
+services:
+  cli:
+    image: arnis-cli:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /workspace
+    volumes:
+      - ./docker-data/output:/workspace/output
+      - ./docker-data/cache:/cache
+    entrypoint: ["/usr/local/bin/arnis"]
+    command: ["--help"]
+
+  gui:
+    image: arnis-gui:local
+    profiles: ["gui"]
+    build:
+      context: .
+      dockerfile: Dockerfile.gui
+    working_dir: /workspace
+    ports:
+      - "6080:6080"
+    environment:
+      - XDG_CACHE_HOME=/cache
+      - DISPLAY=:99
+    volumes:
+      - ./docker-data/output:/workspace/output
+      - ./docker-data/cache:/cache
